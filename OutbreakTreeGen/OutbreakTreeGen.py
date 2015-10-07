@@ -1,7 +1,13 @@
 ﻿import random
 import math
 import sys
-import ete3
+import warnings
+try:
+    import ete3
+    eteExists = True
+except ImportError:
+    eteExists = False
+    warnings.warn('ETE is not installed.')
 
 sys.setrecursionlimit(1000)
 
@@ -153,10 +159,11 @@ print('Ratio = {}'.format(ratio))
 texttree = root.newickOutput(OUTPUTMODE)
 print(texttree)
 
-tree = ete3.Tree(texttree, format = 8)
+if eteExists:
+    tree = ete3.Tree(texttree, format = 8)
 
-#print(tree.get_ascii(show_internal=True))
+    #print(tree.get_ascii(show_internal=True))
 
-#ts = ete3.TreeStyle()
-#ts.show_leaf_name = True
-#tree.show(tree_style = ts)
+    #ts = ete3.TreeStyle()
+    #ts.show_leaf_name = True
+    #tree.show(tree_style = ts)
